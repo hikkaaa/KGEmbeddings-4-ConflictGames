@@ -37,7 +37,6 @@ kg-conflict_51_final-rom22_4482-1:Decision
     a cg:Decision ;
     cg:madeByParticipant kg-conflict_51_final-rom22_4482-1:Participant ;
     cg:hasRoleConcept vocab:Defender ;
-    cg:d_att_def_within "Defense"^^xsd:string ;
     cg:d_investment "9"^^xsd:decimal ;
     cg:d_investment_pct "0.9"^^xsd:decimal .
 
@@ -55,13 +54,10 @@ kg-conflict_51_final-rom22_4482-1:Participant
     cg:i_Generosity_gps2_z "-0.175483"^^xsd:decimal ;
     cg:i_Identity2_z "-0.476237"^^xsd:decimal ;
 
-    cg:i_Generosity_gps_1_cat "high"^^xsd:string ;
     cg:hasGenerosityGps1CategoryConcept vocab:GenerosityGps1High ;
 
-    cg:i_Generosity_gps2_cat "medium"^^xsd:string ;
     cg:hasGenerosityGps2CategoryConcept vocab:GenerosityGps2Medium ;
 
-    cg:i_Identity_cat "medium"^^xsd:string ;
     cg:hasIdentityCategoryConcept vocab:IdentityMedium ;
 
     cg:hasHomeCountry kg-conflict_51_final-rom22_4482-1:Country_DZA ;

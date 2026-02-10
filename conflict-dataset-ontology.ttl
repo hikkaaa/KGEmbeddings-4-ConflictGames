@@ -211,28 +211,6 @@
   rdfs:range xsd:decimal .
 
 ############################
-# i_*_cat (Categorical individual-level variables)
-############################
-
-:i_Generosity_gps_1_cat a owl:DatatypeProperty ;
-  rdfs:label "i_Generosity_gps_1_cat"@en ;
-  rdfs:comment "Categorical version of GPS item 1 generosity. Values: low / medium / high."@en ;
-  rdfs:domain :Participant ;
-  rdfs:range xsd:string .
-
-:i_Generosity_gps2_cat a owl:DatatypeProperty ;
-  rdfs:label "i_Generosity_gps2_cat"@en ;
-  rdfs:comment "Categorical version of GPS item 2 generosity. Values: low / medium / high."@en ;
-  rdfs:domain :Participant ;
-  rdfs:range xsd:string .
-
-:i_Identity_cat a owl:DatatypeProperty ;
-  rdfs:label "i_Identity_cat"@en ;
-  rdfs:comment "Categorical version of national identification. Values: low / medium / high."@en ;
-  rdfs:domain :Participant ;
-  rdfs:range xsd:string .
-
-############################
 # c_* (Country-level variables)
 ############################
 
@@ -278,18 +256,6 @@
   rdfs:label "d_countriesT_iso3"@en ;
   rdfs:comment "Country ISO3 code of the opponent."@en ;
   rdfs:domain :Country ;
-  rdfs:range xsd:string .
-
-:d_att_def_within a owl:DatatypeProperty ;
-  rdfs:label "d_att_def_within"@en ;
-  rdfs:comment "Role of the participant in the decision: attacker or defender (also usable as a game-type label)."@en ;
-  rdfs:domain :Decision ;
-  rdfs:range xsd:string .
-
-:d_Ingroup_Outgroup_Stranger a owl:DatatypeProperty ;
-  rdfs:label "d_Ingroup_Outgroup_Stranger"@en ;
-  rdfs:comment "Whether the opponent is from the same group (ingroup), another group (outgroup), or unidentified (stranger)."@en ;
-  rdfs:domain :Interaction ;
   rdfs:range xsd:string .
 
 :d_investment a owl:DatatypeProperty ;
