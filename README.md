@@ -1,5 +1,8 @@
 # KGEmbeddings-4-ConflictGames
 
+<img width="1439" height="1200" alt="image" src="https://github.com/user-attachments/assets/3fa9e968-5b19-48d3-bfe8-7f4e77ba7018" />
+
+
 This repository contains a **semantic representation** of experimental conflict game datasets, including:
 
 - an  **OWL ontology** modeling the structure of the game
