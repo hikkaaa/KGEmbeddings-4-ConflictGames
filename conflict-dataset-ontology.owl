@@ -145,8 +145,8 @@
   rdfs:domain :Country ;
   rdfs:range xsd:string .
 
-:gdp2019 a owl:DatatypeProperty ;
-  rdfs:label "GDP per capita (2019)"@en ;
+:gdp a owl:DatatypeProperty ;
+  rdfs:label "GDP per capita"@en ;
   rdfs:domain :Country ;
   rdfs:range xsd:decimal .
 
