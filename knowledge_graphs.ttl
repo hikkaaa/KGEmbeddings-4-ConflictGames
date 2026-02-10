@@ -1,0 +1,72 @@
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix cg:      <http://example.org/conflict-ontology#> .
+@prefix vocab:   <http://example.org/conflict-ontology/vocab#> .
+
+<http://example.org/conflict-ontology/knowledge-graphs>
+    a owl:Ontology ;
+    owl:imports <http://example.org/conflict-ontology#ConflictOntology> ;
+    dcterms:title "Conflict Game Knowledge Graphs"@en .
+
+#################################################################
+# KG: conflict_51_final – participant rom22_4482 – round 1
+#################################################################
+
+@prefix kg-conflict_51_final-rom22_4482-1:
+  <http://example.org/conflict-kg/graphs/conflict_51_final/rom22_4482/round/1/> .
+
+kg-conflict_51_final-rom22_4482-1:Dataset
+    a cg:Dataset ;
+    dcterms:identifier "conflict_51_final"^^xsd:string .
+
+kg-conflict_51_final-rom22_4482-1:Game
+    a cg:Game ;
+    cg:inDataset kg-conflict_51_final-rom22_4482-1:Dataset ;
+    rdfs:label "Conflict game – conflict_51_final"@en .
+
+kg-conflict_51_final-rom22_4482-1:Round
+    a cg:Round ;
+    rdfs:label "Round 1"@en .
+
+kg-conflict_51_final-rom22_4482-1:Interaction
+    a cg:Interaction ;
+    cg:hasOpponentCountry kg-conflict_51_final-rom22_4482-1:Country_ISR ;
+    cg:hasGroupRelation vocab:Outgroup .
+
+kg-conflict_51_final-rom22_4482-1:Decision
+    a cg:Decision ;
+    cg:madeByParticipant kg-conflict_51_final-rom22_4482-1:Participant ;
+    cg:hasRole vocab:Defender ;
+    cg:investment "9.0"^^xsd:decimal ;
+    cg:investmentPercentage "0.9"^^xsd:decimal .
+
+kg-conflict_51_final-rom22_4482-1:Participant
+    a cg:Participant ;
+    cg:participantId "rom22_4482"^^xsd:string ;
+    cg:age "26"^^xsd:integer ;
+    cg:gender "Men"^^xsd:string ;
+    cg:generosityGps1 "8.0"^^xsd:decimal ;
+    cg:generosityGps2 "150.0"^^xsd:decimal ;
+    cg:identityScore "5.0"^^xsd:decimal ;
+    cg:hasHomeCountry kg-conflict_51_final-rom22_4482-1:Country_DZA ;
+    cg:participatesInGame kg-conflict_51_final-rom22_4482-1:Game ;
+    cg:inDataset kg-conflict_51_final-rom22_4482-1:Dataset .
+
+kg-conflict_51_final-rom22_4482-1:Country_DZA
+    a cg:Country ;
+    cg:countryIso3 "DZA"^^xsd:string ;
+    cg:gdp2019 "43592.083582"^^xsd:decimal ;
+    cg:giniIndex "27.6"^^xsd:decimal .
+
+kg-conflict_51_final-rom22_4482-1:Country_ISR
+    a cg:Country ;
+    cg:countryIso3 "ISR"^^xsd:string .
+
+# Structural links
+kg-conflict_51_final-rom22_4482-1:Game
+    cg:hasRound kg-conflict_51_final-rom22_4482-1:Round .
+
+kg-conflict_51_final-rom22_4482-1:Round
+    cg:hasInteraction kg-conflict_51_final-rom22_4482-1:Interaction ;
+    cg:hasDecision    kg-conflict_51_final-rom22_4482-1:Decision .
+
