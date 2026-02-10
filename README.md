@@ -1,6 +1,6 @@
 # KGEmbeddings-4-ConflictGames
 
-<img width="1439" height="1200" alt="image" src="https://github.com/user-attachments/assets/3fa9e968-5b19-48d3-bfe8-7f4e77ba7018" />
+<img width="1516" height="1074" alt="image" src="https://github.com/user-attachments/assets/5ddab2a8-dfb6-4a7f-b7b4-6d6fa387df9a" />
 
 
 This repository contains a **semantic representation** of experimental conflict game datasets, including:
