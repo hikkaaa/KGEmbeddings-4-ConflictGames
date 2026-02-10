@@ -16,8 +16,8 @@ The goal is to bridge experimental behavioral data and graph-based machine learn
 
 ## 📁 Repository contents
 
-├── conflict-dataset-ontology.owl # Core OWL ontology (structure)\
-├── conflict-vocabulary.owl # SKOS controlled vocabularies\
+├── conflict-dataset-ontology.ttl # Core OWL ontology (structure)\
+├── conflict-vocabulary.ttl # SKOS controlled vocabularies\
 ├── conflict_dataset_codebook.R # Original dataset codebook\
 ├── conflict_dataset_final.rda # Dataset (R format)\
 ├── LICENSE # Apache 2.0 license\
