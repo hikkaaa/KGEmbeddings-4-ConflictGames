@@ -1,0 +1,200 @@
+@prefix :        <http://example.org/conflict-kg#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+
+#################################################################
+# Ontology header
+#################################################################
+
+:ConflictOntology
+  a owl:Ontology ;
+  dcterms:title "Conflict game ontology"@en ;
+  dcterms:description "Ontology capturing participants, games, rounds, interactions, and decisions in conflict game datasets."@en ;
+  owl:versionInfo "1.0.0"@en .
+
+#################################################################
+# Core Classes
+#################################################################
+
+:Dataset a owl:Class ;
+  rdfs:label "Dataset"@en ;
+  rdfs:comment "A dataset release or version used for provenance and traceability."@en .
+
+:Game a owl:Class ;
+  rdfs:label "Game"@en ;
+  rdfs:comment "A conflict game in which participants take part and make decisions across multiple rounds."@en .
+
+:Round a owl:Class ;
+  rdfs:label "Round"@en ;
+  rdfs:comment "A single round within a game. Each round contains one interaction and one decision by the focal participant."@en .
+
+:Interaction a owl:Class ;
+  rdfs:label "Interaction"@en ;
+  rdfs:comment "Interaction context between a focal participant and an opponent in a round."@en .
+
+:Decision a owl:Class ;
+  rdfs:label "Decision"@en ;
+  rdfs:comment "A decision event corresponding to a participant's investment choice in a round."@en .
+
+:Participant a owl:Class ;
+  rdfs:label "Participant"@en ;
+  rdfs:comment "A human participant taking part in a game and making decisions across rounds."@en .
+
+:Country a owl:Class ;
+  rdfs:label "Country"@en ;
+  rdfs:comment "Country associated with participants and opponents, identified by ISO3 codes and country-level attributes."@en .
+
+#################################################################
+# Object Properties
+#################################################################
+
+:inDataset a owl:ObjectProperty ;
+  rdfs:label "in dataset"@en ;
+  rdfs:domain owl:Thing ;
+  rdfs:range :Dataset .
+
+:participatesInGame a owl:ObjectProperty ;
+  rdfs:label "participates in game"@en ;
+  rdfs:domain :Participant ;
+  rdfs:range :Game .
+
+:hasRound a owl:ObjectProperty ;
+  rdfs:label "has round"@en ;
+  rdfs:domain :Game ;
+  rdfs:range :Round .
+
+:hasInteraction a owl:ObjectProperty ;
+  rdfs:label "has interaction"@en ;
+  rdfs:domain :Round ;
+  rdfs:range :Interaction .
+
+:hasDecision a owl:ObjectProperty ;
+  rdfs:label "has decision"@en ;
+  rdfs:domain :Round ;
+  rdfs:range :Decision .
+
+:madeByParticipant a owl:ObjectProperty ;
+  rdfs:label "made by participant"@en ;
+  rdfs:domain :Decision ;
+  rdfs:range :Participant .
+
+:hasHomeCountry a owl:ObjectProperty ;
+  rdfs:label "has home country"@en ;
+  rdfs:domain :Participant ;
+  rdfs:range :Country .
+
+:hasOpponentCountry a owl:ObjectProperty ;
+  rdfs:label "has opponent country"@en ;
+  rdfs:domain :Interaction ;
+  rdfs:range :Country .
+
+:hasRole a owl:ObjectProperty ;
+  rdfs:label "has role"@en ;
+  rdfs:domain :Decision ;
+  rdfs:range skos:Concept .
+
+:hasGroupRelation a owl:ObjectProperty ;
+  rdfs:label "has group relation"@en ;
+  rdfs:domain :Interaction ;
+  rdfs:range skos:Concept .
+
+#################################################################
+# Data Properties
+#################################################################
+
+### Participant-level
+
+:participantId a owl:DatatypeProperty ;
+  rdfs:label "participant identifier"@en ;
+  rdfs:domain :Participant ;
+  rdfs:range xsd:string .
+
+:age a owl:DatatypeProperty ;
+  rdfs:label "age"@en ;
+  rdfs:domain :Participant ;
+  rdfs:range xsd:integer .
+
+:gender a owl:DatatypeProperty ;
+  rdfs:label "gender"@en ;
+  rdfs:domain :Participant ;
+  rdfs:range xsd:string .
+
+:generosityGps1 a owl:DatatypeProperty ;
+  rdfs:label "generosity GPS item 1"@en ;
+  rdfs:domain :Participant ;
+  rdfs:range xsd:decimal .
+
+:generosityGps2 a owl:DatatypeProperty ;
+  rdfs:label "generosity GPS item 2"@en ;
+  rdfs:domain :Participant ;
+  rdfs:range xsd:decimal .
+
+:identityScore a owl:DatatypeProperty ;
+  rdfs:label "national identification score"@en ;
+  rdfs:domain :Participant ;
+  rdfs:range xsd:decimal .
+
+### Country-level
+
+:countryIso3 a owl:DatatypeProperty ;
+  rdfs:label "country ISO3 code"@en ;
+  rdfs:domain :Country ;
+  rdfs:range xsd:string .
+
+:gdp2019 a owl:DatatypeProperty ;
+  rdfs:label "GDP per capita (2019)"@en ;
+  rdfs:domain :Country ;
+  rdfs:range xsd:decimal .
+
+:giniIndex a owl:DatatypeProperty ;
+  rdfs:label "GINI index"@en ;
+  rdfs:domain :Country ;
+  rdfs:range xsd:decimal .
+
+### Decision-level
+
+:investment a owl:DatatypeProperty ;
+  rdfs:label "investment"@en ;
+  rdfs:domain :Decision ;
+  rdfs:range xsd:decimal .
+
+:investmentPercentage a owl:DatatypeProperty ;
+  rdfs:label "investment percentage"@en ;
+  rdfs:domain :Decision ;
+  rdfs:range xsd:decimal .
+
+#################################################################
+# Cardinality Constraints
+#################################################################
+
+:Participant rdfs:subClassOf [
+  a owl:Restriction ;
+  owl:onProperty :hasHomeCountry ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+  owl:onClass :Country
+] .
+
+:Decision rdfs:subClassOf [
+  a owl:Restriction ;
+  owl:onProperty :madeByParticipant ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+  owl:onClass :Participant
+] .
+
+:Decision rdfs:subClassOf [
+  a owl:Restriction ;
+  owl:onProperty :hasRole ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+  owl:onClass skos:Concept
+] .
+
+:Interaction rdfs:subClassOf [
+  a owl:Restriction ;
+  owl:onProperty :hasOpponentCountry ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+  owl:onClass :Country
+] .
