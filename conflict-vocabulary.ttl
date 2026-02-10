@@ -1,77 +1,151 @@
-@prefix :       <http://example.org/conflict-ontology/vocab#> .
-@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+#################################################################
+
+@prefix :        <http://example.org/conflict-ontology/vocab#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 #################################################################
-# Vocabulary header
+# Vocabulary ontology header
+#################################################################
+
+:VocabularyOntology
+  a owl:Ontology ;
+  dcterms:title "Conflict Game Vocabulary (SKOS)"@en ;
+  dcterms:description "Controlled vocabularies for categorical variables in conflict game datasets."@en ;
+  owl:versionInfo "1.0.0"@en .
+
+#################################################################
+# Vocabulary overview
 #################################################################
 
 :ConflictVocabulary
   a skos:ConceptScheme ;
   dcterms:title "Conflict Game Vocabulary"@en ;
   dcterms:description """
-This vocabulary defines the concepts used to annotate categorical
-variables in conflict game datasets. It is intended to be used together with
-the conflict game ontology and provides standardized labels for roles assumed
-by participants and for group relations between participants and opponents.
+This vocabulary defines the controlled concepts used to annotate categorical variables in conflict game datasets.
+It is meant to be used together with the conflict game ontology.
 
-The concepts in this vocabulary are designed to be referenced from decision-
-and interaction-level entities via object properties, rather than instantiated
-as standalone entities. The vocabulary does not introduce new theoretical
-constructs beyond those encoded in the dataset and serves to ensure consistency,
-clarity, and interoperability when representing categorical variables.
-"""@en ;
-  skos:note """
-Usage guidelines:
-- Concepts from this vocabulary should be linked using skos:Concept references.
-- No data properties should be attached to these concepts.
-- Concepts should not be treated as agents or events.
-- Extensions to this vocabulary should preserve conceptual compatibility
-  with the original dataset categories.
+Concepts are referenced from instances via object properties (e.g., hasRoleConcept, hasGroupRelationConcept).
+Using SKOS ensures consistent labels and makes categorical variables interoperable across datasets.
 """@en .
 
 #################################################################
-# Role vocabulary
+# Decision Role Scheme (d_att_def_within)
 #################################################################
 
 :RoleScheme a skos:ConceptScheme ;
-  rdfs:label "Decision role scheme"@en ;
   skos:prefLabel "Decision roles"@en ;
-  skos:definition "Roles assumed by a participant when making a decision in a conflict game."@en ;
+  skos:definition "Role of the participant in the decision (attacker or defender)."@en ;
   skos:inScheme :ConflictVocabulary .
 
 :Attacker a skos:Concept ;
   skos:inScheme :RoleScheme ;
   skos:prefLabel "Attacker"@en ;
-  skos:definition "Role in which a participant invests resources to attempt to take resources from an opponent."@en .
+  skos:altLabel "Attack"@en ;
+  skos:definition "Attacker role: the participant makes an attacking decision."@en .
 
 :Defender a skos:Concept ;
   skos:inScheme :RoleScheme ;
   skos:prefLabel "Defender"@en ;
-  skos:definition "Role in which a participant invests resources to protect their own resources from an opponent."@en .
+  skos:altLabel "Defense"@en ;
+  skos:definition "Defender role: the participant makes a defending decision."@en .
 
 #################################################################
-# Group-relation vocabulary
+# Group Relation Scheme (d_Ingroup_Outgroup_Stranger)
 #################################################################
 
 :GroupRelationScheme a skos:ConceptScheme ;
-  rdfs:label "Group relation scheme"@en ;
   skos:prefLabel "Group relations"@en ;
-  skos:definition "Relational categories describing the social relation between a participant and an opponent in a game interaction."@en ;
+  skos:definition "Relation between the participant and the opponent in an interaction."@en ;
   skos:inScheme :ConflictVocabulary .
 
 :Ingroup a skos:Concept ;
   skos:inScheme :GroupRelationScheme ;
   skos:prefLabel "Ingroup"@en ;
-  skos:definition "The opponent belongs to the same group as the participant."@en .
+  skos:definition "Opponent belongs to the same group as the participant."@en .
 
 :Outgroup a skos:Concept ;
   skos:inScheme :GroupRelationScheme ;
   skos:prefLabel "Outgroup"@en ;
-  skos:definition "The opponent belongs to a different group from the participant."@en .
+  skos:definition "Opponent belongs to a different group than the participant."@en .
 
 :Stranger a skos:Concept ;
   skos:inScheme :GroupRelationScheme ;
   skos:prefLabel "Stranger"@en ;
-  skos:definition "The opponent's group membership is unknown to the participant."@en .
+  skos:altLabel "Unknown"@en ;
+  skos:definition "Opponent's group membership is unknown to the participant."@en .
+
+#################################################################
+# Individual-difference category scheme: GPS item 1 (i_Generosity_gps_1_cat)
+#################################################################
+
+:GenerosityGps1CategoryScheme a skos:ConceptScheme ;
+  skos:prefLabel "Generosity GPS1 categories"@en ;
+  skos:definition "Categories for i_Generosity_gps_1_cat (low / medium / high)."@en ;
+  skos:inScheme :ConflictVocabulary .
+
+:GenerosityGps1Low a skos:Concept ;
+  skos:inScheme :GenerosityGps1CategoryScheme ;
+  skos:prefLabel "low"@en ;
+  skos:definition "Low category for i_Generosity_gps_1_cat."@en .
+
+:GenerosityGps1Medium a skos:Concept ;
+  skos:inScheme :GenerosityGps1CategoryScheme ;
+  skos:prefLabel "medium"@en ;
+  skos:definition "Medium category for i_Generosity_gps_1_cat."@en .
+
+:GenerosityGps1High a skos:Concept ;
+  skos:inScheme :GenerosityGps1CategoryScheme ;
+  skos:prefLabel "high"@en ;
+  skos:definition "High category for i_Generosity_gps_1_cat."@en .
+
+#################################################################
+# Individual-difference category scheme: GPS item 2 (i_Generosity_gps2_cat)
+#################################################################
+
+:GenerosityGps2CategoryScheme a skos:ConceptScheme ;
+  skos:prefLabel "Generosity GPS2 categories"@en ;
+  skos:definition "Categories for i_Generosity_gps2_cat (low / medium / high)."@en ;
+  skos:inScheme :ConflictVocabulary .
+
+:GenerosityGps2Low a skos:Concept ;
+  skos:inScheme :GenerosityGps2CategoryScheme ;
+  skos:prefLabel "low"@en ;
+  skos:definition "Low category for i_Generosity_gps2_cat."@en .
+
+:GenerosityGps2Medium a skos:Concept ;
+  skos:inScheme :GenerosityGps2CategoryScheme ;
+  skos:prefLabel "medium"@en ;
+  skos:definition "Medium category for i_Generosity_gps2_cat."@en .
+
+:GenerosityGps2High a skos:Concept ;
+  skos:inScheme :GenerosityGps2CategoryScheme ;
+  skos:prefLabel "high"@en ;
+  skos:definition "High category for i_Generosity_gps2_cat."@en .
+
+#################################################################
+# Individual-difference category scheme: Identity (i_Identity_cat)
+#################################################################
+
+:IdentityCategoryScheme a skos:ConceptScheme ;
+  skos:prefLabel "Identity categories"@en ;
+  skos:definition "Categories for i_Identity_cat (low / medium / high)."@en ;
+  skos:inScheme :ConflictVocabulary .
+
+:IdentityLow a skos:Concept ;
+  skos:inScheme :IdentityCategoryScheme ;
+  skos:prefLabel "low"@en ;
+  skos:definition "Low category for i_Identity_cat."@en .
+
+:IdentityMedium a skos:Concept ;
+  skos:inScheme :IdentityCategoryScheme ;
+  skos:prefLabel "medium"@en ;
+  skos:definition "Medium category for i_Identity_cat."@en .
+
+:IdentityHigh a skos:Concept ;
+  skos:inScheme :IdentityCategoryScheme ;
+  skos:prefLabel "high"@en ;
+  skos:definition "High category for i_Identity_cat."@en .

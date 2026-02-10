@@ -1,19 +1,18 @@
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+
 @prefix cg:      <http://example.org/conflict-ontology#> .
 @prefix vocab:   <http://example.org/conflict-ontology/vocab#> .
 
-<http://example.org/conflict-ontology/knowledge-graphs>
-    a owl:Ontology ;
-    owl:imports <http://example.org/conflict-ontology#ConflictOntology> ;
-    dcterms:title "Conflict Game Knowledge Graphs"@en .
-
 #################################################################
-# KG: conflict_51_final – participant rom22_4482 – round 1
+# KG: conflict_51_final – rom22_4482 – round 1
 #################################################################
 
 @prefix kg-conflict_51_final-rom22_4482-1:
-  <http://example.org/conflict-kg/graphs/conflict_51_final/rom22_4482/round/1/> .
+  <http://example.org/conflict-ontology/graphs/conflict_51_final/rom22_4482/round/1/> .
 
 kg-conflict_51_final-rom22_4482-1:Dataset
     a cg:Dataset ;
@@ -31,42 +30,59 @@ kg-conflict_51_final-rom22_4482-1:Round
 kg-conflict_51_final-rom22_4482-1:Interaction
     a cg:Interaction ;
     cg:hasOpponentCountry kg-conflict_51_final-rom22_4482-1:Country_ISR ;
-    cg:hasGroupRelation vocab:Outgroup .
+    cg:hasGroupRelationConcept vocab:Outgroup ;
+    cg:d_Ingroup_Outgroup_Stranger "Outgroup"^^xsd:string .
 
 kg-conflict_51_final-rom22_4482-1:Decision
     a cg:Decision ;
     cg:madeByParticipant kg-conflict_51_final-rom22_4482-1:Participant ;
-    cg:hasRole vocab:Defender ;
-    cg:investment "9.0"^^xsd:decimal ;
-    cg:investmentPercentage "0.9"^^xsd:decimal .
+    cg:hasRoleConcept vocab:Defender ;
+    cg:d_att_def_within "Defense"^^xsd:string ;
+    cg:d_investment "9"^^xsd:decimal ;
+    cg:d_investment_pct "0.9"^^xsd:decimal .
 
 kg-conflict_51_final-rom22_4482-1:Participant
     a cg:Participant ;
-    cg:participantId "rom22_4482"^^xsd:string ;
-    cg:age "26"^^xsd:integer ;
-    cg:gender "Men"^^xsd:string ;
-    cg:generosityGps1 "8.0"^^xsd:decimal ;
-    cg:generosityGps2 "150.0"^^xsd:decimal ;
-    cg:identityScore "5.0"^^xsd:decimal ;
+    cg:i_id "rom22_4482"^^xsd:string ;
+    cg:i_age "26"^^xsd:integer ;
+    cg:i_Gender "Men"^^xsd:string ;
+    cg:i_Generosity_gps_1 "8"^^xsd:decimal ;
+    cg:i_Generosity_gps2 "150"^^xsd:decimal ;
+    cg:i_Identity2 "5"^^xsd:decimal ;
+
+    cg:i_age_z "-1.026337"^^xsd:decimal ;
+    cg:i_Generosity_gps_1_z "0.071249"^^xsd:decimal ;
+    cg:i_Generosity_gps2_z "-0.175483"^^xsd:decimal ;
+    cg:i_Identity2_z "-0.476237"^^xsd:decimal ;
+
+    cg:i_Generosity_gps_1_cat "high"^^xsd:string ;
+    cg:hasGenerosityGps1CategoryConcept vocab:GenerosityGps1High ;
+
+    cg:i_Generosity_gps2_cat "medium"^^xsd:string ;
+    cg:hasGenerosityGps2CategoryConcept vocab:GenerosityGps2Medium ;
+
+    cg:i_Identity_cat "medium"^^xsd:string ;
+    cg:hasIdentityCategoryConcept vocab:IdentityMedium ;
+
     cg:hasHomeCountry kg-conflict_51_final-rom22_4482-1:Country_DZA ;
     cg:participatesInGame kg-conflict_51_final-rom22_4482-1:Game ;
     cg:inDataset kg-conflict_51_final-rom22_4482-1:Dataset .
 
 kg-conflict_51_final-rom22_4482-1:Country_DZA
     a cg:Country ;
-    cg:countryIso3 "DZA"^^xsd:string ;
-    cg:gdp2019 "43592.083582"^^xsd:decimal ;
-    cg:giniIndex "27.6"^^xsd:decimal .
+    cg:c_countryiso3 "DZA"^^xsd:string ;
+    cg:c_GDP2019 "43592.083582"^^xsd:decimal ;
+    cg:c_GINI_index_World_Bank_estimate "27.6"^^xsd:decimal ;
+    cg:c_GDP2019_z "0.776783"^^xsd:decimal ;
+    cg:c_GINI_index_z "-1.260206"^^xsd:decimal .
 
 kg-conflict_51_final-rom22_4482-1:Country_ISR
     a cg:Country ;
-    cg:countryIso3 "ISR"^^xsd:string .
+    cg:d_countriesT_iso3 "ISR"^^xsd:string .
 
-# Structural links
 kg-conflict_51_final-rom22_4482-1:Game
     cg:hasRound kg-conflict_51_final-rom22_4482-1:Round .
 
 kg-conflict_51_final-rom22_4482-1:Round
     cg:hasInteraction kg-conflict_51_final-rom22_4482-1:Interaction ;
     cg:hasDecision    kg-conflict_51_final-rom22_4482-1:Decision .
-
