@@ -1,4 +1,4 @@
-# KGEmbeddings-4-ConflictGames
+# KGEmbeddings-4-XS
 
 <img width="1516" height="1074" alt="image" src="https://github.com/user-attachments/assets/5ddab2a8-dfb6-4a7f-b7b4-6d6fa387df9a" />
 
