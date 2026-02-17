@@ -88,6 +88,14 @@ Usage guidelines:
   skos:inScheme :ConflictVocabulary ;
   skos:topConceptOf :ConflictVocabulary .
 
+ :Player
+  a skos:Concept ;
+  skos:inScheme :RoleScheme ;
+  skos:prefLabel "Player"@en ;
+  skos:notation "player" ;
+  skos:definition "Generic decision role used in games where no asymmetric role structure (e.g., attacker/defender) is specified."@en ;
+  skos:scopeNote "Use this role for datasets in which participants simply choose an investment or contribution amount without a role distinction."@en . 
+
 :Attacker
   a skos:Concept ;
   skos:inScheme :RoleScheme ;

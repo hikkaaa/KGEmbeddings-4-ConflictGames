@@ -1,0 +1,62 @@
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+@prefix cg:      <http://example.org/conflict-ontology#> .
+@prefix vocab:   <http://example.org/conflict-ontology/vocab#> .
+
+#################################################################
+# KG: dataset1_longFormat_Shuxian – UK100113 – round 1
+#################################################################
+
+@prefix kg-dataset1_longFormat_Shuxian-UK100113-1:
+  <http://example.org/conflict-ontology/graphs/dataset1_longFormat_Shuxian/UK100113/round/1/> .
+
+kg-dataset1_longFormat_Shuxian-UK100113-1:Dataset
+  a cg:Dataset ;
+  dcterms:identifier "dataset1_longFormat_Shuxian"^^xsd:string .
+
+kg-dataset1_longFormat_Shuxian-UK100113-1:Game
+  a cg:Game ;
+  cg:hasGameTypeConcept vocab:StepLevelPublicGoodsGame ;
+  cg:inDataset kg-dataset1_longFormat_Shuxian-UK100113-1:Dataset ;
+  cg:hasRound kg-dataset1_longFormat_Shuxian-UK100113-1:Round .
+
+kg-dataset1_longFormat_Shuxian-UK100113-1:Round
+  a cg:Round ;
+  rdfs:label "Round 1"@en ;
+  cg:inDataset kg-dataset1_longFormat_Shuxian-UK100113-1:Dataset ;
+  cg:hasInteraction kg-dataset1_longFormat_Shuxian-UK100113-1:Interaction ;
+  cg:hasDecision kg-dataset1_longFormat_Shuxian-UK100113-1:Decision .
+
+kg-dataset1_longFormat_Shuxian-UK100113-1:Interaction
+  a cg:Interaction ;
+  cg:inDataset kg-dataset1_longFormat_Shuxian-UK100113-1:Dataset ;
+  cg:hasOpponentCountry kg-dataset1_longFormat_Shuxian-UK100113-1:Country_UNK ;
+  cg:hasGroupRelationConcept vocab:Stranger .
+
+kg-dataset1_longFormat_Shuxian-UK100113-1:Decision
+  a cg:Decision ;
+  cg:inDataset kg-dataset1_longFormat_Shuxian-UK100113-1:Dataset ;
+  cg:madeByParticipant kg-dataset1_longFormat_Shuxian-UK100113-1:Participant ;
+  cg:hasRoleConcept vocab:Player ;
+  cg:d_investment "5"^^xsd:decimal .
+
+kg-dataset1_longFormat_Shuxian-UK100113-1:Participant
+  a cg:Participant ;
+  cg:inDataset kg-dataset1_longFormat_Shuxian-UK100113-1:Dataset ;
+  cg:i_id "UK100113"^^xsd:string ;
+  cg:i_age "37"^^xsd:integer ;
+  cg:i_Gender "M"^^xsd:string ;
+  cg:hasHomeCountry kg-dataset1_longFormat_Shuxian-UK100113-1:Country_GBR ;
+  cg:participatesInGame kg-dataset1_longFormat_Shuxian-UK100113-1:Game .
+
+kg-dataset1_longFormat_Shuxian-UK100113-1:Country_GBR
+  a cg:Country ;
+  cg:c_countryiso3 "GBR"^^xsd:string .
+
+kg-dataset1_longFormat_Shuxian-UK100113-1:Country_UNK
+  a cg:Country ;
+  cg:c_countryiso3 "UNK"^^xsd:string .
