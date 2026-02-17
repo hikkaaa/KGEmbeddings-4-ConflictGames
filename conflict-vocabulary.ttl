@@ -1,24 +1,27 @@
 #################################################################
-# FILE: conflict-vocabulary.owl
-# VERSION: 1.0.0
+# FILE: conflict-vocabulary.ttl
+# VERSION: 1.1.0
 #
 # Controlled vocabularies (SKOS) for categorical variables in the
-# conflict game dataset, plus a small terminology scheme to make
-# the knowledge graphs self-explanatory.
+# conflict game dataset, plus a terminology scheme to make the
+# knowledge graphs self-explanatory across multiple game types.
 #
 # How this file is used:
-# - Instances (Participant, Decision, Interaction) link to these
-#   concepts via object properties defined in the ontology:
+# - Instances (Participant, Decision, Interaction, Game) link to these
+#   concepts via object properties defined in the ontology, e.g.:
 #     • conflict:hasRoleConcept
 #     • conflict:hasGroupRelationConcept
 #     • conflict:hasGenerosityGps1CategoryConcept
 #     • conflict:hasGenerosityGps2CategoryConcept
 #     • conflict:hasIdentityCategoryConcept
+#     • conflict:hasGameTypeConcept)
 #
 # Notes:
-# - Category schemes correspond directly to dataset categorical columns.
-# - CoreTerminologyScheme provides human-readable terminology and is not
-#   a direct mapping target for a specific dataset column.
+# - Dataset-mapped schemes correspond directly to dataset categorical columns.
+# - CoreTerminologyScheme provides human-readable terminology and a light
+#   concept hierarchy (SKOS broader/narrower) for reuse across datasets.
+# - Numeric measurements are not attached to SKOS concepts; they remain
+#   datatype properties on Participants/Decisions/Countries in the KG.
 #################################################################
 
 @prefix :        <http://example.org/conflict-ontology/vocab#> .
@@ -39,11 +42,12 @@ Controlled vocabularies for categorical variables in conflict game datasets.
 
 This file contains:
 (1) dataset-mapped categorical schemes (roles, group relations, low/medium/high categories),
-(2) a small core terminology scheme to support readability and documentation.
+(2) a core terminology scheme with a light SKOS hierarchy to support readability and
+    interoperability across multiple game types.
 
 Concepts are referenced from instances via object properties in the conflict ontology.
 """@en ;
-  owl:versionInfo "1.0.0"@en .
+  owl:versionInfo "1.1.0"@en .
 
 #################################################################
 # Vocabulary overview
@@ -61,7 +65,7 @@ Dataset-mapped schemes:
 - Individual-difference categories (i_Generosity_gps_1_cat, i_Generosity_gps2_cat, i_Identity_cat)
 
 Documentation scheme:
-- Core terminology (game, round, decision, interaction, opponent observability)
+- Core terminology (study design, game types, decision/interaction vocabulary, observability cues)
 
 Using SKOS ensures consistent labeling and supports interoperability across datasets and analyses.
 """@en ;
@@ -73,7 +77,7 @@ Usage guidelines:
 """@en .
 
 #################################################################
-# Decision Role Scheme (d_att_def_within)
+# Decision Role Scheme (dataset-mapped: d_att_def_within)
 #################################################################
 
 :RoleScheme
@@ -81,7 +85,8 @@ Usage guidelines:
   skos:prefLabel "Decision roles"@en ;
   skos:definition "Role of the participant in the decision task."@en ;
   skos:scopeNote "Maps dataset column d_att_def_within to a controlled concept."@en ;
-  skos:inScheme :ConflictVocabulary .
+  skos:inScheme :ConflictVocabulary ;
+  skos:topConceptOf :ConflictVocabulary .
 
 :Attacker
   a skos:Concept ;
@@ -102,7 +107,7 @@ Usage guidelines:
   skos:scopeNote "Mapping: d_att_def_within = 'Defense'."@en .
 
 #################################################################
-# Group Relation Scheme (d_Ingroup_Outgroup_Stranger)
+# Group Relation Scheme (dataset-mapped: d_Ingroup_Outgroup_Stranger)
 #################################################################
 
 :GroupRelationScheme
@@ -110,7 +115,8 @@ Usage guidelines:
   skos:prefLabel "Group relations"@en ;
   skos:definition "Group relation between participant and opponent for a given interaction."@en ;
   skos:scopeNote "Maps dataset column d_Ingroup_Outgroup_Stranger to a controlled concept."@en ;
-  skos:inScheme :ConflictVocabulary .
+  skos:inScheme :ConflictVocabulary ;
+  skos:topConceptOf :ConflictVocabulary .
 
 :Ingroup
   a skos:Concept ;
@@ -138,7 +144,7 @@ Usage guidelines:
   skos:scopeNote "Mapping: d_Ingroup_Outgroup_Stranger = 'Stranger'."@en .
 
 #################################################################
-# Individual-difference categories: GPS item 1 (i_Generosity_gps_1_cat)
+# Individual-difference categories: GPS item 1 (dataset-mapped: i_Generosity_gps_1_cat)
 #################################################################
 
 :GenerosityGps1CategoryScheme
@@ -146,12 +152,14 @@ Usage guidelines:
   skos:prefLabel "Generosity GPS1 categories"@en ;
   skos:definition "Categories used for i_Generosity_gps_1_cat."@en ;
   skos:scopeNote "Dataset values are 'low', 'medium', 'high'."@en ;
-  skos:inScheme :ConflictVocabulary .
+  skos:inScheme :ConflictVocabulary ;
+  skos:topConceptOf :ConflictVocabulary .
 
 :GenerosityGps1Low
   a skos:Concept ;
   skos:inScheme :GenerosityGps1CategoryScheme ;
   skos:prefLabel "low"@en ;
+  skos:altLabel "Low (GPS1)"@en ;
   skos:notation "low" ;
   skos:definition "Low category for i_Generosity_gps_1_cat."@en ;
   skos:scopeNote "Mapping: i_Generosity_gps_1_cat = 'low'."@en .
@@ -160,6 +168,7 @@ Usage guidelines:
   a skos:Concept ;
   skos:inScheme :GenerosityGps1CategoryScheme ;
   skos:prefLabel "medium"@en ;
+  skos:altLabel "Medium (GPS1)"@en ;
   skos:notation "medium" ;
   skos:definition "Medium category for i_Generosity_gps_1_cat."@en ;
   skos:scopeNote "Mapping: i_Generosity_gps_1_cat = 'medium'."@en .
@@ -168,12 +177,13 @@ Usage guidelines:
   a skos:Concept ;
   skos:inScheme :GenerosityGps1CategoryScheme ;
   skos:prefLabel "high"@en ;
+  skos:altLabel "High (GPS1)"@en ;
   skos:notation "high" ;
   skos:definition "High category for i_Generosity_gps_1_cat."@en ;
   skos:scopeNote "Mapping: i_Generosity_gps_1_cat = 'high'."@en .
 
 #################################################################
-# Individual-difference categories: GPS item 2 (i_Generosity_gps2_cat)
+# Individual-difference categories: GPS item 2 (dataset-mapped: i_Generosity_gps2_cat)
 #################################################################
 
 :GenerosityGps2CategoryScheme
@@ -181,12 +191,14 @@ Usage guidelines:
   skos:prefLabel "Generosity GPS2 categories"@en ;
   skos:definition "Categories used for i_Generosity_gps2_cat."@en ;
   skos:scopeNote "Dataset values are 'low', 'medium', 'high'."@en ;
-  skos:inScheme :ConflictVocabulary .
+  skos:inScheme :ConflictVocabulary ;
+  skos:topConceptOf :ConflictVocabulary .
 
 :GenerosityGps2Low
   a skos:Concept ;
   skos:inScheme :GenerosityGps2CategoryScheme ;
   skos:prefLabel "low"@en ;
+  skos:altLabel "Low (GPS2)"@en ;
   skos:notation "low" ;
   skos:definition "Low category for i_Generosity_gps2_cat."@en ;
   skos:scopeNote "Mapping: i_Generosity_gps2_cat = 'low'."@en .
@@ -195,6 +207,7 @@ Usage guidelines:
   a skos:Concept ;
   skos:inScheme :GenerosityGps2CategoryScheme ;
   skos:prefLabel "medium"@en ;
+  skos:altLabel "Medium (GPS2)"@en ;
   skos:notation "medium" ;
   skos:definition "Medium category for i_Generosity_gps2_cat."@en ;
   skos:scopeNote "Mapping: i_Generosity_gps2_cat = 'medium'."@en .
@@ -203,12 +216,13 @@ Usage guidelines:
   a skos:Concept ;
   skos:inScheme :GenerosityGps2CategoryScheme ;
   skos:prefLabel "high"@en ;
+  skos:altLabel "High (GPS2)"@en ;
   skos:notation "high" ;
   skos:definition "High category for i_Generosity_gps2_cat."@en ;
   skos:scopeNote "Mapping: i_Generosity_gps2_cat = 'high'."@en .
 
 #################################################################
-# Individual-difference categories: Identity (i_Identity_cat)
+# Individual-difference categories: Identity (dataset-mapped: i_Identity_cat)
 #################################################################
 
 :IdentityCategoryScheme
@@ -216,12 +230,14 @@ Usage guidelines:
   skos:prefLabel "Identity categories"@en ;
   skos:definition "Categories used for i_Identity_cat."@en ;
   skos:scopeNote "Dataset values are 'low', 'medium', 'high'."@en ;
-  skos:inScheme :ConflictVocabulary .
+  skos:inScheme :ConflictVocabulary ;
+  skos:topConceptOf :ConflictVocabulary .
 
 :IdentityLow
   a skos:Concept ;
   skos:inScheme :IdentityCategoryScheme ;
   skos:prefLabel "low"@en ;
+  skos:altLabel "Low (Identity)"@en ;
   skos:notation "low" ;
   skos:definition "Low category for i_Identity_cat."@en ;
   skos:scopeNote "Mapping: i_Identity_cat = 'low'."@en .
@@ -230,6 +246,7 @@ Usage guidelines:
   a skos:Concept ;
   skos:inScheme :IdentityCategoryScheme ;
   skos:prefLabel "medium"@en ;
+  skos:altLabel "Medium (Identity)"@en ;
   skos:notation "medium" ;
   skos:definition "Medium category for i_Identity_cat."@en ;
   skos:scopeNote "Mapping: i_Identity_cat = 'medium'."@en .
@@ -238,35 +255,75 @@ Usage guidelines:
   a skos:Concept ;
   skos:inScheme :IdentityCategoryScheme ;
   skos:prefLabel "high"@en ;
+  skos:altLabel "High (Identity)"@en ;
   skos:notation "high" ;
   skos:definition "High category for i_Identity_cat."@en ;
   skos:scopeNote "Mapping: i_Identity_cat = 'high'."@en .
 
 #################################################################
 # Core terminology (documentation & annotation)
-# These concepts support readability of the KG, but are not direct
-# mappings of a dataset column.
+# Not direct mappings of a dataset column; meant to make the KG
+# self-explanatory and robust across multiple game types.
 #################################################################
 
 :CoreTerminologyScheme
   a skos:ConceptScheme ;
   skos:prefLabel "Core terminology"@en ;
-  skos:definition "Core concepts used to describe the conflict game study design (game, round, decision, interaction, opponent observability)."@en ;
+  skos:definition "Core concepts used to describe the conflict game study design (game, round, decision, interaction, observability cues, and measurement terminology)."@en ;
   skos:scopeNote "Documentation scheme: not a direct mapping target for a specific dataset column."@en ;
-  skos:inScheme :ConflictVocabulary .
+  skos:inScheme :ConflictVocabulary ;
+  skos:topConceptOf :ConflictVocabulary .
+
+#################################################################
+# Study design anchor concepts
+#################################################################
+
+:StudyDesignConcept
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Study design"@en ;
+  skos:definition "Terminology used to describe the structure of an experimental study and its repeated tasks."@en .
 
 :GameConcept
   a skos:Concept ;
   skos:inScheme :CoreTerminologyScheme ;
   skos:prefLabel "Game"@en ;
-  skos:definition "An experimental task with a defined decision problem and payoff structure."@en .
+  skos:definition "An experimental task with a defined decision problem and payoff structure."@en ;
+  skos:broader :StudyDesignConcept .
+
+:RoundConcept
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Round"@en ;
+  skos:altLabel "Trial"@en ;
+  skos:definition "A single repeated instance of the task in which the participant faces one opponent context and produces one decision."@en ;
+  skos:broader :StudyDesignConcept .
+
+:DecisionConcept
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Decision"@en ;
+  skos:definition "A single choice made by a participant in a given round (e.g., an investment or contribution amount)."@en ;
+  skos:broader :StudyDesignConcept .
+
+:InteractionConcept
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Interaction"@en ;
+  skos:definition "The contextual pairing between a focal participant and an opponent in a given round, defined by the observable information about the opponent."@en ;
+  skos:broader :StudyDesignConcept .
+
+#################################################################
+# Game type hierarchy (Game -> Game type -> specific game types)
+#################################################################
 
 :GameTypeConcept
   a skos:Concept ;
   skos:inScheme :CoreTerminologyScheme ;
   skos:prefLabel "Game type"@en ;
   skos:definition "A label identifying which experimental game/task is being played."@en ;
-  skos:scopeNote "Useful when multiple games or task variants appear across datasets."@en .
+  skos:scopeNote "Useful when multiple games or task variants appear across datasets."@en ;
+  skos:broader :GameConcept .
 
 :AttackerDefenderContest
   a skos:Concept ;
@@ -275,37 +332,141 @@ Usage guidelines:
   skos:altLabel "Attacker–defender game"@en ;
   skos:altLabel "AD-C"@en ;
   skos:definition "A conflict task structured around attacker and defender roles, where participants allocate part of an endowment as an investment and outcomes depend on the comparison of investments."@en ;
-  skos:scopeNote "This terminology is intended to describe the task underlying d_att_def_within and investment variables."@en .
+  skos:scopeNote "Describes the task underlying d_att_def_within and investment variables in the original dataset."@en ;
+  skos:broader :GameTypeConcept .
 
-:RoundConcept
+:ContestGame
   a skos:Concept ;
   skos:inScheme :CoreTerminologyScheme ;
-  skos:prefLabel "Round"@en ;
-  skos:altLabel "Trial"@en ;
-  skos:definition "A single repeated instance of the task in which the participant faces one opponent context and produces one decision."@en .
+  skos:prefLabel "Contest game"@en ;
+  skos:altLabel "Competition game"@en ;
+  skos:definition "A competitive game in which participants choose an investment level and payoffs depend on relative investments in a competitive setting."@en ;
+  skos:scopeNote "For dataset1, map the behavioral choice (CGB) to conflict:d_investment on the corresponding Decision."@en ;
+  skos:broader :GameTypeConcept .
 
-:DecisionConcept
+:StepLevelPublicGoodsGame
   a skos:Concept ;
   skos:inScheme :CoreTerminologyScheme ;
-  skos:prefLabel "Decision"@en ;
-  skos:definition "A single choice made by a participant in a given round, including role and investment."@en .
+  skos:prefLabel "Step-level public goods game"@en ;
+  skos:altLabel "Step-level PGG"@en ;
+  skos:altLabel "Threshold public good game"@en ;
+  skos:definition "A public goods game with a threshold (step-level) structure, where participants choose a contribution level and outcomes depend on whether the group reaches the threshold."@en ;
+  skos:scopeNote "For dataset1, map the behavioral choice (SLB) to conflict:d_investment on the corresponding Decision."@en ;
+  skos:broader :GameTypeConcept .
 
-:InteractionConcept
+#################################################################
+# Decision content terminology (what a 'decision value' means)
+#################################################################
+
+:DecisionContentConcept
   a skos:Concept ;
   skos:inScheme :CoreTerminologyScheme ;
-  skos:prefLabel "Interaction"@en ;
-  skos:definition "The contextual pairing between a focal participant and an opponent in a given round, defined by the observable information about the opponent."@en .
-
-:OpponentCountryObservable
-  a skos:Concept ;
-  skos:inScheme :CoreTerminologyScheme ;
-  skos:prefLabel "Opponent country observable"@en ;
-  skos:definition "The opponent is represented to the participant through an observable country/nationality cue, rather than through a persistent opponent identifier."@en ;
-  skos:scopeNote "Supports modeling the opponent at the country level in Interaction."@en .
+  skos:prefLabel "Decision content"@en ;
+  skos:definition "Terminology describing what the numeric decision value represents (e.g., investment, contribution)."@en ;
+  skos:broader :DecisionConcept .
 
 :InvestmentConcept
   a skos:Concept ;
   skos:inScheme :CoreTerminologyScheme ;
   skos:prefLabel "Investment"@en ;
   skos:definition "The amount of endowment allocated by the participant in a given round as their conflict decision."@en ;
-  skos:scopeNote "The dataset contains both an absolute investment and an investment percentage."@en .
+  skos:scopeNote "Even when datasets vary in naming (e.g., contribution), d_investment is used as the generic decision amount in the KG."@en ;
+  skos:broader :DecisionContentConcept .
+
+:ContributionConcept
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Contribution"@en ;
+  skos:definition "A participant's chosen contribution amount to a collective or threshold-based outcome."@en ;
+  skos:scopeNote "For step-level public goods games, the decision amount can be interpreted as a contribution; the KG may still store the numeric value in d_investment."@en ;
+  skos:broader :DecisionContentConcept .
+
+#################################################################
+# Interaction observability cues (what is observable about the opponent/context)
+#################################################################
+
+:ObservabilityConcept
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Opponent observability"@en ;
+  skos:definition "Terminology describing what information about the opponent is observable to the participant within an interaction."@en ;
+  skos:broader :InteractionConcept .
+
+:OpponentCountryObservable
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Opponent country observable"@en ;
+  skos:definition "The opponent is represented to the participant through an observable country/nationality cue, rather than through a persistent opponent identifier."@en ;
+  skos:scopeNote "Supports modeling the opponent at the country level in Interaction."@en ;
+  skos:broader :ObservabilityConcept .
+
+:OpponentGroupObservable
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Opponent group relation observable"@en ;
+  skos:definition "The participant is provided a cue about whether the opponent is ingroup, outgroup, or stranger."@en ;
+  skos:scopeNote "Aligns with d_Ingroup_Outgroup_Stranger when that manipulation is present."@en ;
+  skos:broader :ObservabilityConcept .
+
+:OpponentRoleObservable
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Opponent role structure observable"@en ;
+  skos:definition "The interaction indicates role structure (e.g., attacker vs defender) that shapes incentives and choices."@en ;
+  skos:scopeNote "Aligns with the attacker/defender contest structure when present."@en ;
+  skos:broader :ObservabilityConcept .
+
+#################################################################
+# Cross-scheme alignment anchors (light hierarchy)
+# These help keep concept families consistent across schemes.
+# They do not change dataset mappings.
+#################################################################
+
+:RoleConcept
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Role"@en ;
+  skos:definition "A functional position in a decision task (e.g., attacker, defender)."@en ;
+  skos:broader :DecisionConcept .
+
+:GroupRelationConcept
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Group relation"@en ;
+  skos:definition "A categorical relation between participant and opponent (ingroup/outgroup/stranger)."@en ;
+  skos:broader :InteractionConcept .
+
+# Link dataset-mapped concepts into the documentation hierarchy
+:Attacker  skos:broader :RoleConcept .
+:Defender  skos:broader :RoleConcept .
+
+:Ingroup   skos:broader :GroupRelationConcept .
+:Outgroup  skos:broader :GroupRelationConcept .
+:Stranger  skos:broader :GroupRelationConcept .
+
+#################################################################
+# Optional measurement terminology (documentation only)
+#################################################################
+
+:MeasurementTerminologyConcept
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Measurement terminology"@en ;
+  skos:definition "Terminology describing common measurement types used in behavioral game datasets (behavior vs expectation, etc.)."@en ;
+  skos:broader :StudyDesignConcept .
+
+:BehaviorMeasure
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Behavioral choice"@en ;
+  skos:definition "A participant's realized choice in the game (e.g., competitive or cooperative behavior)."@en ;
+  skos:scopeNote "For dataset1, CGB and SLB are behavioral measures (choices), which can be stored as d_investment in the KG."@en ;
+  skos:broader :MeasurementTerminologyConcept .
+
+:ExpectationMeasure
+  a skos:Concept ;
+  skos:inScheme :CoreTerminologyScheme ;
+  skos:prefLabel "Expectation"@en ;
+  skos:definition "A participant's stated expectation about the partner's choice in the game."@en ;
+  skos:scopeNote "If expectations are not modeled in the KG, keep them out of the KG or store only as provenance metadata; avoid overloading d_investment with expectations."@en ;
+  skos:broader :MeasurementTerminologyConcept .
