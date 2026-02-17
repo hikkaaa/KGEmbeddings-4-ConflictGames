@@ -19,9 +19,9 @@ kg-conflict_51_final-rom22_4482-1:Dataset
     dcterms:identifier "conflict_51_final"^^xsd:string .
 
 kg-conflict_51_final-rom22_4482-1:Game
-    a cg:Game ;
-    cg:inDataset kg-conflict_51_final-rom22_4482-1:Dataset ;
-    rdfs:label "Conflict game – conflict_51_final"@en .
+  a cg:Game ;
+  cg:hasGameTypeConcept vocab:AttackerDefenderContest ;
+  cg:inDataset kg-conflict_51_final-rom22_4482-1:Dataset .
 
 kg-conflict_51_final-rom22_4482-1:Round
     a cg:Round ;
