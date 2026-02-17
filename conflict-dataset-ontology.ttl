@@ -104,6 +104,12 @@
 # OBJECT PROPERTIES TO SKOS CONCEPTS (CATEGORICAL VARIABLES)
 #################################################################
 
+:hasGameTypeConcept a owl:ObjectProperty ;
+  rdfs:label "has game type concept"@en ;
+  rdfs:comment "Links a Game instance to a SKOS concept describing the type of game/task used in the dataset (e.g., Attacker–Defender contest)."@en ;
+  rdfs:domain :Game ;
+  rdfs:range skos:Concept .
+
 :hasRoleConcept a owl:ObjectProperty ;
   rdfs:label "has role concept"@en ;
   rdfs:comment "Categorical decision role (Attacker or Defender). Dataset variable: d_att_def_within."@en ;
